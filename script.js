@@ -5,7 +5,7 @@ function computerChoice() {
 }
 
 function userInput() {
-    
+
     let userChoice = window.prompt("Choose (R/P/S): ");
 
     if (['rock', 'paper', 'scissors'].indexOf(userChoice) >= 0) {
@@ -24,14 +24,15 @@ let user = 0;
 
 function round() {
 
+    console.log(`User: ${user}`);
+    console.log(`Computer: ${comp}`);
+
     let compSelection = computerChoice();
     let userSelection = userInput();
 
     if (compSelection == userSelection) {   // Draw
 
         window.alert('That one was a draw.');
-        console.log(`User: ${user}`);
-        console.log(`Computer: ${comp}`)
         
     } else if 
     ((compSelection == 'rock' && userSelection == 'scissors') ||
@@ -39,16 +40,12 @@ function round() {
     (compSelection == 'scissors' && userSelection == 'paper')) {    // Comp wins
 
         window.alert('Computer Won. You lost.');
-        comp++;
-        console.log(`User: ${user}`);
-        console.log(`Computer: ${comp}`);
+        return comp++;
 
     } else {    // User wins
 
         window.alert('Computer lost. You won!');
-        user++;
-        console.log(`User: ${user}`);
-        console.log(`Computer: ${comp}`);
+        return user++;
     }
 }
 
@@ -57,14 +54,18 @@ for (comp < 5; user < 5;) {
     round();
 
     if (comp == 5) {
+
         window.alert('Computer Won. Do better.');
         window.alert('Play again?');
 
     } else if (user == 5) {
+
         window.alert('You won! Pog');
         window.alert('Play again?');
 
     } else {
+
         window.alert('Next round?')
+
     }
 }
