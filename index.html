@@ -2,12 +2,36 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
         <title>Rock Paper Scissors</title>
-        <link type="stylesheet" href="style.css">
-        <script type="text/javascript" src="script.js"></script>
     </head>
 
     <body>
+        <div id="scores">
+            <div id="player">
+                <h1>You: </h1>
+                <h1 id="player-score"></h1>
+            </div>
+            <div id="computer">
+                <h1>Computer: </h1>
+                <h1 id="comp-score"></h1>
+            </div>
+        </div>
+        <div id="result-div">
+            <h2 id="result">Choose your weapon to start.</h2>
+        </div>
 
+        <div id="buttons">
+            <div id="choices">
+                <button id="rock" class="option-btn" value="rock">Rock</button>
+                <button id="paper" class="option-btn" value="paper">Paper</button>
+                <button id="scissors" class="option-btn" value="scissors">Scissors</button>
+            </div>
+    
+            <div id="reset">
+                <button id="reset-btn" value="reset">Reset</button>
+            </div> 
+        </div>
     </body>
+    <script type="text/javascript" src="script.js"></script>
 </html>
