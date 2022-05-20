@@ -1,120 +1,223 @@
-let comp = 0;       // Sets scroes to 0
+let comp = 0;       // Sets points to 0
 let user = 0;
+
+let userChoice;     // Initialise variable
+
 let compScore = document.getElementById('comp-score').textContent = `${comp}`;      // Sets scores to live
 let playerScore = document.getElementById('player-score').textContent = `${user}`;
 
-const buttons = document.querySelectorAll('.option-btn');       // Adds optino-button events
-buttons.forEach(button => button.addEventListener('click', round));
+let options = document.querySelectorAll('.icons-div');      // Adds click event to weapons div
+options.forEach(option => option.addEventListener('click', userInput));
 
-const resetBtn = document.getElementById('reset');
+const resetBtn = document.getElementById('reset');      // Adds click event to 'reset' button
 resetBtn.addEventListener('click', reset);
 
 function reset() {      // Resets game
+    console.log('Reset');
+
     comp = 0;       // Sets scroes to 0
     user = 0;
 
+    document.getElementById('cheer').pl;
+
     compScore = document.getElementById('comp-score').textContent = `${comp}`;      // Sets scores to live
     playerScore = document.getElementById('player-score').textContent = `${user}`;
-
-    document.getElementById('result').textContent = 'Choose your weapon to start.';     // Sets to starting text
-    buttons.forEach(button => 
-        button.disabled = false)
+    
+    document.getElementById('comp-choice').textContent = `Computer: "Lets play again."`;     // Changes visual text
+    document.getElementById('result').textContent = 'Pick your weapon:';
 }
 
-function userInput() {      // User inputs choice of r/p/s
+function userInput(e) {      // User inputs choice of r/p/s
 
-    if (document.getElementById('rock').id == 'rock') {
-        return 'rock';
-    } else if (document.getElementById('paper').id == 'paper') {
-        return 'paper';
-    } else if (document.getElementById('scissors').id == 'scissors') {
-        return 'scissors';
+    let playerSelection = e.currentTarget;      // Clicks on the parent div of choice
+
+    if (playerSelection.id == 'Rock') {
+
+        document.getElementById('rock-img').style.transform = 'rotateZ(20deg)';     // Adds animation on click
+        setTimeout(() => {
+            document.getElementById('rock-img').style.transform = '';
+        }, 500);
+
+        console.log('User choice: Rock')
+        userChoice = 'Rock';
+
+        return round();
+    } else if (playerSelection.id == 'Paper') {
+
+        document.getElementById('paper-img').style.transform = 'rotateZ(20deg)';     // Adds animation on click
+        setTimeout(() => {
+            document.getElementById('paper-img').style.transform = '';
+        }, 500);
+
+        console.log('User choice: Paper');
+        userChoice = 'Paper';
+
+        return round();
+    } else if (playerSelection.id == 'Scissors') {
+
+        document.getElementById('scissors-img').style.transform = 'rotateZ(20deg)';     // Adds animation on click
+        setTimeout(() => {
+            document.getElementById('scissors-img').style.transform = '';
+        }, 500);
+
+        console.log('User choice: Scissors');
+        userChoice = 'Scissors';
+
+        return round();
     } else {
-        return console.error('No user input detected');
+        console.error('userInput: fail');
     }
 }
 
 function computerChoice() {     // Computer chooses r/p/s
 
-    let compChoice = ['rock', 'paper', 'scissors'];
-    return compChoice[Math.floor(Math.random() * compChoice.length)];
+    let compOptions = ['Rock', 'Paper', 'Scissors'];        // Comp chooses from array
+    let compChoice = compOptions[Math.floor(Math.random() * compOptions.length)];
+
+    document.getElementById('comp-choice').textContent = `Computer " "`;        // Adds visual feedback of choice
+    setTimeout(() => {
+        document.getElementById('comp-choice').textContent = `Computer: "${compChoice}"`;
+    }, 200);
+
+    console.log(`Comp choice: ${compChoice}`);
+    return compChoice;
 }
 
 function round() {      // Compares choices to see who wins & edits scores
 
-    let compSelection = computerChoice();
-    let userSelection = userInput();
+    let compSelection = computerChoice();       // Gets choices
+    let userSelection = userChoice;
 
-    if (compSelection == userSelection) {   // Draw
-        document.getElementById('result').textContent = `That round was a draw.`;
+    if (compSelection === userSelection) {   // Draw
         logScores();
+        document.getElementById('result').textContent = ``;
+        setTimeout(() => {
+            document.getElementById('result').textContent = `That round was a draw.`;
+        }, 200);
         
     } else if 
-    ((compSelection == 'rock' && userSelection == 'scissors') ||
-    (compSelection == 'paper' && userSelection == 'rock') || 
-    (compSelection == 'scissors' && userSelection == 'paper')) {    // Comp wins
+    ((compSelection == 'Rock' && userSelection == 'Scissors') ||
+    (compSelection == 'Paper' && userSelection == 'Rock') || 
+    (compSelection == 'Scissors' && userSelection == 'Paper')) {    // Comp wins round
 
-        document.getElementById('result').textContent = `Computer won that round. You lost.`;
         comp++;     // Computer score +1
         logScores();
+        document.getElementById('result').textContent = ``;
+        setTimeout(() => {
+        document.getElementById('result').textContent = `Computer won that round.`;
+        }, 200);
 
-    } else {    // User wins
+    } else {    // User wins round
 
-        document.getElementById('result').textContent = 'You won that round. Computer lost.';
         user++;       // User score +1
         logScores();
+        document.getElementById('result').textContent = ``;
+        setTimeout(() => {
+        document.getElementById('result').textContent = 'You won that round.';
+        }, 200);
     }
 }
 
 function logScores() {      // Updates scores
+
     document.getElementById('comp-score').textContent = `${comp}`;
     document.getElementById('player-score').textContent = `${user}`;
 
     console.log(`User: ${user}`);
     console.log(`Computer: ${comp}`);
 
-    setTimeout(500);
     checkScores();
 }
 
 function checkScores() {        // Checks if score reaches 5
-    if (comp == 5) {
-        document.getElementById('result').textContent = 'Computer won the match! Do better.';
-        buttons.forEach(button => button.disabled = true)
-            setTimeout(() => {
-                reset();
-            }, 1500);
+    if (comp > 4) {     // Comp wins match
 
-    } else if (user == 5) {
-        document.getElementById('result').textContent = 'You won the match! You must be proud.';
-        buttons.forEach(button => button.disabled = true)
-            setTimeout(() => {
-                reset();
-            }, 1500);
+        options.forEach(option => option.classList.add('no-events'));
+        booAudio();
+
+        setTimeout(() => {
+            result.style.textDecoration = 'none';
+            result.style.fontSize = '2.8rem';
+            options.forEach(option => option.classList.remove('no-events'));
+            reset();
+        }, 2500);
+
+        setTimeout(() => {
+            const result = document.getElementById('result');
+                result.style.textDecoration = 'overline var(--red) wavy 4px';
+                result.style.fontSize = '3.8rem';
+                result.textContent = 'Computer won the match!';
+                document.getElementById('comp-choice').textContent = `Computer "That was too easy."`;
+        }, 201);
+
+    } else if (user > 4) {      // Player wins match
+
+        options.forEach(option => option.classList.add('no-events'));
+        cheerAudio();
+
+        setTimeout(() => {
+            result.style.textDecoration = 'none';
+            result.style.fontSize = '2.8rem';
+            options.forEach(option => option.classList.remove('no-events'));
+            reset();
+        }, 2500);
+
+        setTimeout(() => {
+            const result = document.getElementById('result');
+                result.style.textDecoration = 'overline var(--green) wavy 4px';
+                result.style.fontSize = '3.8rem';
+                result.textContent = 'You won the match!';
+                document.getElementById('comp-choice').textContent = `Computer "You got lucky for once."`;
+        }, 201);
 
     } else {
         return
     }
 }
 
-/* for (comp < 5; user < 5;) {     // Re-runs rounds until comp or user reaches 5 points
+// Audio
 
-    round();
+document.getElementById('Rock').addEventListener('click', weaponAudio);
+document.getElementById('Paper').addEventListener('click', weaponAudio);
+document.getElementById('Scissors').addEventListener('click', weaponAudio);
 
-    if (comp == 5) {
+document.getElementById('mute').addEventListener('click', mute);
 
-        window.alert('Computer Won. Do better.');
-        window.alert('Play again?');
+function weaponAudio() {
+    const one = document.getElementById('whoosh1');
+    const two = document.getElementById('whoosh2');
+    const three = document.getElementById('whoosh3');
 
-    } else if (user == 5) {
+    const fx = [one, two, three]
 
-        window.alert('You won! Pog');
-        window.alert('Play again?');
+    return fx[Math.floor(Math.random() * fx.length)].play();
 
+}
+
+function cheerAudio() {
+    audio.currentTime = 0;
+    document.getElementById('cheer').play();
+}
+
+function booAudio() {
+    audio.currentTime = 0;
+    document.getElementById('boo').play();
+}
+
+function mute() {
+
+    let muteBtn = document.getElementById('mute');
+    const allAudio = document.querySelectorAll('audio');
+
+    if (muteBtn.className == 'mute') {
+        allAudio.forEach(sound => sound.muted = true);
+        muteBtn.src = './images/mute.png';
+        muteBtn.className = 'unmute';
+        console.log('Mute');
     } else {
-
-        window.alert('Next round?')
-
+        allAudio.forEach(sound => sound.muted = false);
+        muteBtn.src = './images/unmute.png';
+        muteBtn.className = 'mute';
+        console.log('Unmute');
     }
-} */
-
+}

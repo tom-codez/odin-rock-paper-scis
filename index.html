@@ -6,31 +6,57 @@
         <title>Rock Paper Scissors</title>
     </head>
 
-    <body>
-        <div id="scores">
-            <div id="player">
-                <h1>You: </h1>
-                <h1 id="player-score"></h1>
-            </div>
-            <div id="computer">
-                <h1>Computer: </h1>
-                <h1 id="comp-score"></h1>
-            </div>
-        </div>
-        <div id="result-div">
-            <h2 id="result">Choose your weapon to start.</h2>
+    <body id="body">
+        <div id="title">
+            <h1 id="t-rock" class="t-text">ROCK.</h1>
+            <h1 id="t-paper" class="t-text">PAPER.</h1>
+            <h1 id="t-scissors" class="t-text">SCISSORS.</h1>
         </div>
 
-        <div id="buttons">
-            <div id="choices">
-                <button id="rock" class="option-btn" value="rock">Rock</button>
-                <button id="paper" class="option-btn" value="paper">Paper</button>
-                <button id="scissors" class="option-btn" value="scissors">Scissors</button>
+        <main>
+            <div id="scores">
+                <div id="player" class="scores">
+                    <h2>You: </h2>
+                    <h2 id="player-score"></h2>
+                </div>
+                <div id="computer" class="scores">
+                    <h2>Computer: </h2>
+                    <h2 id="comp-score"></h2>
+                </div>
+            </div>
+
+            <div id="reset-div">
+                <h3 id="comp-choice">Computer: "You'll lose."</h3>
+                <button id="reset" value="reset">Reset</button>
+                <img src="./images/unmute.png" alt="mute/unmute" id="mute" class="mute">
+            </div>
+
+            <div id="result-div">
+                <h3 id="result">Pick your weapon:</h3>
             </div>
     
-            <div id="reset">
-                <button id="reset-btn" value="reset">Reset</button>
-            </div> 
+            <div id="choices">
+                <div id="Rock" class="icons-div">
+                    <h4 id="rock-text" class="option-btn" value="rock">Rock</h4>
+                    <img id="rock-img" src="./images/Hand-Rock(w).png" alt="Hand-Rock" class="icons">
+                </div>
+                <div id="Paper" class="icons-div">
+                    <h4 id="paper-text" class="option-btn" value="paper">Paper</h4>
+                    <img id="paper-img" src="./images/Hand-Paper(w).png" alt="Hand-Paper" class="icons">
+                </div>
+                <div id="Scissors" class="icons-div">
+                    <h4 id="scissors-text" class="option-btn" value="scissors">Scissors</h4>
+                    <img id="scissors-img" src="./images/Hand-Scissors(w).png" alt="Hand-Scissors" class="icons">
+                </div>
+            </div>
+        </main>
+
+        <div id="audio">
+            <audio id="whoosh1" src="./audio/whoosh1.wav">
+            <audio id="whoosh2" src="./audio/whoosh2.wav">
+            <audio id="whoosh3" src="./audio/whoosh3.wav">
+            <audio id="cheer" src="./audio/cheer.wav">
+            <audio id="boo" src="./audio/boo.wav">
         </div>
     </body>
     <script type="text/javascript" src="script.js"></script>
